@@ -77,7 +77,7 @@ export default function HomePage() {
 
         <article>
           <strong>Saldo</strong>
-          <Value color={soma >= 0 ? "entrada" : "saida"}>{soma.toFixed(2)}</Value>
+          <Value color={soma >= 0 ? "entrada" : "saida"}>{soma.toFixed(2).replace(".",",")}</Value>
         </article>
       </TransactionsContainer>
 
