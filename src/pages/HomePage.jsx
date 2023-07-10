@@ -1,18 +1,52 @@
 import styled from "styled-components";
 import { BiExit } from "react-icons/bi";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
+import Transactions from "../components/Transactions";
 
 export default function HomePage() {
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const [soma, setSoma] = useState(0);
+  const { userId, token } = user;
+  const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
-  function logOut(){
+
+  function logOut() {
     localStorage.clear();
-    setUser({})
-    navigate('/')
+    setUser({});
+    navigate("/");
   }
+
+  useEffect(() => {
+    const promise = axios.get(
+      `http://localhost:5000/busca-transacao/${userId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    promise.then((res) => setTransactions(res.data));
+    somar();
+  }, []);
+  function somar(){
+    let positivo = 0;
+    let negativo = 0;
+    for(let i = 0; i < transactions.length; i++){
+      
+      if(transactions[i].type === 'entrada'){
+        positivo += Number(transactions[i].value)
+       
+      }else{
+        negativo += Number(transactions[i].value)
+        
+      }
+    }
+    let somatorio = positivo -negativo;
+    setSoma(somatorio);
+  }
+  console.log(transactions);
   return (
     <HomeContainer>
       <Header>
@@ -22,26 +56,21 @@ export default function HomePage() {
 
       <TransactionsContainer>
         <ul>
-          <ListItemContainer>
-            <div>
-              <span>30/11</span>
-              <strong>Almoço mãe</strong>
-            </div>
-            <Value color={"negativo"}>120,00</Value>
-          </ListItemContainer>
-
-          <ListItemContainer>
-            <div>
-              <span>15/11</span>
-              <strong>Salário</strong>
-            </div>
-            <Value color={"positivo"}>3000,00</Value>
-          </ListItemContainer>
+          {transactions.length === 0 ? (
+            <span> Você ainda não tem transações</span>
+          ) : (
+            transactions.map((transaction) => (
+              <Transactions
+                key={transaction._id}
+                transaction={transaction}
+              />
+            ))
+          )}
         </ul>
 
         <article>
           <strong>Saldo</strong>
-          <Value color={"positivo"}>2880,00</Value>
+          <Value color={soma >= 0 ? "entrada" : "saida"}>{soma.toFixed(2)}</Value>
         </article>
       </TransactionsContainer>
 
@@ -118,7 +147,7 @@ const ButtonsContainer = styled.section`
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "positivo" ? "green" : "red")};
+  color: ${(props) => (props.color === "entrada" ? "green" : "red")};
 `;
 const ListItemContainer = styled.li`
   display: flex;

@@ -7,18 +7,18 @@ import axios from "axios";
 export default function TransactionsPage(props) {
   const {tipo} = useParams();
   const {user} = useContext(UserContext);
-  const {token} = user;
+  const {token, userId} = user;
   const [value, setValue] = useState('');
   const [description, setDescription] = useState('');
   const navigate =useNavigate();
-  console.log(tipo);
-  console.log(token);
+
 
   const headers = {
     headers: {Authorization: `Bearer ${token}`}
   }
 
   const body = {
+    userId: userId, 
     value: value,
     description: description
   }
