@@ -6,7 +6,9 @@ import SignUpPage from "./pages/SignUpPage"
 import TransactionsPage from "./pages/TransactionPage"
 import UserProvider from "./contexts/UserContext"
 
+
 export default function App() {
+
   return (
     <PagesContainer>
       <BrowserRouter>
