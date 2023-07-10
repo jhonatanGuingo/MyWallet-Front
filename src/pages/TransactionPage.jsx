@@ -12,6 +12,7 @@ export default function TransactionsPage(props) {
   const [description, setDescription] = useState('');
   const navigate =useNavigate();
 
+  axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 
   const headers = {
     headers: {Authorization: `Bearer ${token}`}
@@ -24,7 +25,7 @@ export default function TransactionsPage(props) {
   }
   function sendTransaction(e){
     e.preventDefault();
-    const promise = axios.post(`http://localhost:5000/nova-transacao/${tipo}`,body , headers )
+    const promise = axios.post(`/nova-transacao/${tipo}`,body , headers )
 
     promise.then (res => {
       navigate('/home');

@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { ThreeDots } from "react-loader-spinner";
 
+axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function SignUpPage() {
       return 
     }
 
-    const promise = axios.post('http://localhost:5000/cadastro', {
+    const promise = axios.post('/cadastro', {
       name: name,
       email: email,
       senha: pass

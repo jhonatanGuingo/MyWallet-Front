@@ -7,12 +7,16 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Transactions from "../components/Transactions";
 
+axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
+
 export default function HomePage() {
   const { user, setUser } = useContext(UserContext);
   const [soma, setSoma] = useState(0);
   const { userId, token } = user;
   const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
+  let positivo = 0;
+  let negativo = 0;
 
   function logOut() {
     localStorage.clear();
@@ -22,17 +26,19 @@ export default function HomePage() {
 
   useEffect(() => {
     const promise = axios.get(
-      `http://localhost:5000/busca-transacao/${userId}`,
+      `/busca-transacao/${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
     promise.then((res) => setTransactions(res.data));
-    somar();
-  }, []);
+    
+      somar()
+  }, [transactions]);
+
+  
   function somar(){
-    let positivo = 0;
-    let negativo = 0;
+    
     for(let i = 0; i < transactions.length; i++){
       
       if(transactions[i].type === 'entrada'){
@@ -43,10 +49,11 @@ export default function HomePage() {
         
       }
     }
-    let somatorio = positivo -negativo;
+    let somatorio = positivo - negativo;
     setSoma(somatorio);
+    
   }
-  console.log(transactions);
+  
   return (
     <HomeContainer>
       <Header>

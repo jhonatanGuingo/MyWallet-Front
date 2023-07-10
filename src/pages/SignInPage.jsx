@@ -5,6 +5,9 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 
+
+axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
+
 export default function SignInPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -13,7 +16,7 @@ export default function SignInPage() {
 
   function signIn(e){
     e.preventDefault();
-    const promise = axios.post("http://localhost:5000/signIn", {
+    const promise = axios.post("/signIn", {
       email: email,
       senha: pass
     });
