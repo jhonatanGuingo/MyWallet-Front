@@ -46,11 +46,11 @@ export default function SignUpPage() {
     <SingUpContainer>
       <form onSubmit={signUp}>
         <MyWalletLogo />
-        <input disabled = {load} placeholder="Nome" required value = {name} onChange = {e => setName(e.target.value)} type="text" />
-        <input disabled = {load} placeholder="E-mail" required type="email" value = {email} onChange = {e => setEmail(e.target.value)} />
-        <input disabled = {load} placeholder="Senha" required type="password" value = {pass} onChange = {e => setPass(e.target.value)} autocomplete="new-password" />
-        <input disabled = {load} placeholder="Confirme a senha" required type="password" value = {confirmPass} onChange = {e => setConfirmPass(e.target.value)} autocomplete="new-password" />
-        <button disabled = {load} type="submit"> {load ? (<ThreeDots
+        <input disabled = {load} data-test = "name" placeholder="Nome" required value = {name} onChange = {e => setName(e.target.value)} type="text" />
+        <input disabled = {load} data-test = "email" placeholder="E-mail" required type="email" value = {email} onChange = {e => setEmail(e.target.value)} />
+        <input disabled = {load} data-test = "password" placeholder="Senha" required type="password" value = {pass} onChange = {e => setPass(e.target.value)} autocomplete="new-password" />
+        <input disabled = {load} data-test = "conf-password" placeholder="Confirme a senha" required type="password" value = {confirmPass} onChange = {e => setConfirmPass(e.target.value)} autocomplete="new-password" />
+        <button disabled = {load} data-test = "sign-up-submit" type="submit"> {load ? (<ThreeDots
          height="40"
          width="40"
          radius="9"

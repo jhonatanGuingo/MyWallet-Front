@@ -9,9 +9,9 @@ export default function Transactions(props){
         <ListItemContainer>
         <div>
           <span>{date}</span>
-          <strong>{description}</strong>
+          <strong data-test = "registry-name">{description}</strong>
         </div>
-        <Value color={`${type}`}>{valor}</Value>
+        <Value data-test = "registry-amount" color={`${type}`}>{valor}</Value>
       </ListItemContainer>
     )
 }

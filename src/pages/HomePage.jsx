@@ -57,8 +57,8 @@ export default function HomePage() {
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, {user.name} </h1>
-        <BiExit onClick={logOut} />
+        <h1 data-test = "user-name">Olá, {user.name} </h1>
+        <BiExit data-test = "logout" onClick={logOut} />
       </Header>
 
       <TransactionsContainer>
@@ -77,18 +77,18 @@ export default function HomePage() {
 
         <article>
           <strong>Saldo</strong>
-          <Value color={soma >= 0 ? "entrada" : "saida"}>{soma.toFixed(2).replace(".",",")}</Value>
+          <Value color={soma >= 0 ? "entrada" : "saida"} data-test = "total-amount">{soma.toFixed(2).replace(".",",")}</Value>
         </article>
       </TransactionsContainer>
 
       <ButtonsContainer>
-        <button onClick={() => navigate("/nova-transacao/entrada")}>
+        <button data-test = "new-income" onClick={() => navigate("/nova-transacao/entrada")}>
           <AiOutlinePlusCircle />
           <p>
             Nova <br /> entrada
           </p>
         </button>
-        <button onClick={() => navigate("/nova-transacao/saida")}>
+        <button data-test = "new-expensive" onClick={() => navigate("/nova-transacao/saida")}>
           <AiOutlineMinusCircle />
           <p>
             Nova <br />
