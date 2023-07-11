@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import { UserContext } from "../contexts/UserContext";
@@ -6,13 +6,22 @@ import axios from "axios";
 
 export default function TransactionsPage(props) {
   const {tipo} = useParams();
-  const {user} = useContext(UserContext);
+  const {user, lsUser} = useContext(UserContext);
   const {token, userId} = user;
   const [value, setValue] = useState('');
   const [description, setDescription] = useState('');
   const navigate =useNavigate();
 
   axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
+
+  useEffect(() => {
+  
+    if(localStorage.getItem('user') === null){
+      console.log("entrei no if")
+      navigate('/')
+      return
+    }
+  }, [])
 
   const headers = {
     headers: {Authorization: `Bearer ${token}`}
@@ -32,6 +41,10 @@ export default function TransactionsPage(props) {
     })
 
     promise.catch (err => {
+      if(user === {}){
+        navigate('/')
+        return
+      }
       alert(err.response.data)
     })
 

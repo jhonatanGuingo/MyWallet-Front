@@ -10,7 +10,7 @@ import Transactions from "../components/Transactions";
 axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 
 export default function HomePage() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, lsUser } = useContext(UserContext);
   const [soma, setSoma] = useState(0);
   const { userId, token } = user;
   const [transactions, setTransactions] = useState([]);
@@ -25,6 +25,13 @@ export default function HomePage() {
   }
 
   useEffect(() => {
+   
+    if(localStorage.getItem('user') === null){
+      console.log("entrei no if")
+      navigate('/')
+      return
+    }
+
     const promise = axios.get(
       `/busca-transacao/${userId}`,
       {
