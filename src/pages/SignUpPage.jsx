@@ -5,7 +5,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { ThreeDots } from "react-loader-spinner";
-
+import React from "react"
 axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 
 export default function SignUpPage() {

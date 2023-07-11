@@ -4,7 +4,7 @@ import MyWalletLogo from "../components/MyWalletLogo"
 import { useContext, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
-
+import React from "react"
 
 axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 

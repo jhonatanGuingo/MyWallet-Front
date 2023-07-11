@@ -41,10 +41,7 @@ export default function TransactionsPage(props) {
     })
 
     promise.catch (err => {
-      if(user === {}){
-        navigate('/')
-        return
-      }
+
       alert(err.response.data)
     })
 

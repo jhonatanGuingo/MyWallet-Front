@@ -6,7 +6,7 @@ import { UserContext } from "../contexts/UserContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Transactions from "../components/Transactions";
-
+import React from "react"
 axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 
 export default function HomePage() {
@@ -26,12 +26,12 @@ export default function HomePage() {
 
   useEffect(() => {
    
+
     if(localStorage.getItem('user') === null){
       console.log("entrei no if")
       navigate('/')
       return
     }
-
     const promise = axios.get(
       `/busca-transacao/${userId}`,
       {

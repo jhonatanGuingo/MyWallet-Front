@@ -5,7 +5,7 @@ import SignInPage from "./pages/SignInPage"
 import SignUpPage from "./pages/SignUpPage"
 import TransactionsPage from "./pages/TransactionPage"
 import UserProvider from "./contexts/UserContext"
-
+import React from "react"
 
 export default function App() {
 
