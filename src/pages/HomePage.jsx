@@ -73,7 +73,7 @@ export default function HomePage() {
           {transactions.length === 0 ? (
             <span> Você ainda não tem transações</span>
           ) : (
-            transactions.map((transaction) => (
+            transactions.slice(0).reverse().map((transaction) => (
               <Transactions
                 key={transaction._id}
                 transaction={transaction}
